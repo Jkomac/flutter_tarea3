@@ -16,7 +16,7 @@ class DetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitile(),
+                _PosterAndTitle(),
                 _Overview(movie: peli),
                 CastingCards(idMovie: peli.id),
               ],
@@ -53,7 +53,7 @@ class _CustomAppBar extends StatelessWidget {
         ),
         background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage('https://via.placeholder.com/500x300'),
+          image: NetworkImage(peli.fullBackdropPath), // Imagen de Fondo
           fit: BoxFit.cover,
         ),
       ),
@@ -61,7 +61,7 @@ class _CustomAppBar extends StatelessWidget {
   }
 }
 
-class _PosterAndTitile extends StatelessWidget {
+class _PosterAndTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Movie peli = ModalRoute.of(context)?.settings.arguments as Movie;
@@ -75,35 +75,39 @@ class _PosterAndTitile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: AssetImage('assets/loading.gif'),
-              image: NetworkImage('https://via.placeholder.com/200x300'),
+              image: NetworkImage(peli.fullPosterPath), // Portada
               height: 150,
             ),
           ),
           const SizedBox(
             width: 20,
           ),
-          Column(
-            children: [
-              Text(
-                'Títol peli',
-                style: textTheme.headline5,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-              Text(
-                'Títol original',
-                style: textTheme.subtitle1,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-              Row(
-                children: [
-                  const Icon(Icons.star_outline, size: 15, color: Colors.grey),
-                  const SizedBox(width: 5),
-                  Text('Nota mitjana', style: textTheme.caption),
-                ],
-              )
-            ],
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  peli.title,
+                  style: textTheme.headline5,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+                Text(
+                  peli.originalTitle, // Titulo original de la peli
+                  style: textTheme.subtitle1,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.star_outline, size: 15, color: Colors.grey),
+                    const SizedBox(width: 5),
+                    Text(peli.voteAverage.toString(), style: textTheme.caption), // Valoracion de la peli
+                  ],
+                )
+              ],
+            ),
           )
         ],
       ),

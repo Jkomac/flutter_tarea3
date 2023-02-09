@@ -1,6 +1,5 @@
 // To parse this JSON data, do
-//
-//     final nowPlayingResponse = nowPlayingResponseFromMap(jsonString);
+// final nowPlayingResponse = nowPlayingResponseFromMap(jsonString);
 
 import 'models.dart';
 
@@ -19,10 +18,7 @@ class NowPlayingResponse {
   int totalPages;
   int totalResults;
 
-  factory NowPlayingResponse.fromJson(String str) =>
-      NowPlayingResponse.fromMap(json.decode(str));
-
-  // String toJson() => json.encode(toMap());
+  factory NowPlayingResponse.fromJson(String str) => NowPlayingResponse.fromMap(json.decode(str));
 
   factory NowPlayingResponse.fromMap(Map<String, dynamic> json) =>
       NowPlayingResponse(
@@ -32,14 +28,6 @@ class NowPlayingResponse {
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
       );
-
-  // Map<String, dynamic> toMap() => {
-  //       "dates": dates.toMap(),
-  //       "page": page,
-  //       "results": List<dynamic>.from(results.map((x) => x.toMap())),
-  //       "total_pages": totalPages,
-  //       "total_results": totalResults,
-  //     };
 }
 
 class Dates {
@@ -53,17 +41,8 @@ class Dates {
 
   factory Dates.fromJson(String str) => Dates.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Dates.fromMap(Map<String, dynamic> json) => Dates(
         maximum: DateTime.parse(json["maximum"]),
         minimum: DateTime.parse(json["minimum"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "maximum":
-            "${maximum.year.toString().padLeft(4, '0')}-${maximum.month.toString().padLeft(2, '0')}-${maximum.day.toString().padLeft(2, '0')}",
-        "minimum":
-            "${minimum.year.toString().padLeft(4, '0')}-${minimum.month.toString().padLeft(2, '0')}-${minimum.day.toString().padLeft(2, '0')}",
-      };
 }

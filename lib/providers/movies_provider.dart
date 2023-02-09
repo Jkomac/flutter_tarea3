@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this, prefer_final_fields
+
 import 'package:flutter/cupertino.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
@@ -9,19 +11,20 @@ class MoviesProvider extends ChangeNotifier {
   String _apiKey = 'bdf025da16866f6d864b4124114642c2';
   String _language = 'es-ES';
   String _page = '1';
+  String _region = 'ES'; // Establecemos Espanya como valor de la region para el apartado de Populars
 
   List<Movie> onDisplayMovies = [];
-  List<Movie> onPopular = [];
+  List<Movie> onPopulars = [];
 
   Map<int, List<Cast>> casting = {}; // PeliculaID + Lista de Actores
 
   MoviesProvider() {
-    print('Movies Provider inicializado');
     this.getOnDisplayMovies();
+    this.getOnPopulars();
   }
 
-  getOnDisplayMovies() async { // Metodo encargado de hacer la peticion al servidor para obtener la info de las pelis
-    print('getOnDisplayMovies');
+  // Metodo encargado de hacer la peticion al servidor para obtener la info de las pelis en el CardSwiper
+  getOnDisplayMovies() async { 
     // (URL, Acceder al EndPoint, Definir conjunto Clave - Valor)
     var url = Uri.https(_baseUrl, '3/movie/now_playing', {
       'api_key': _apiKey,
@@ -38,8 +41,25 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners(); // Avisar a todo el arbol de Widgets que usan este provider de que ha habido cambios
   }
 
-  // Tarea 3
-  getOnPopular(){}// getOnPopulars() async {} + consulta
+  // Metodo encargado de hacer la peticion al servidor para obtener la info de las pelis populares en el MovieSlider
+  getOnPopulars() async {
+    print('OnPopulars inicializado');
+    // (URL, Acceder al EndPoint, Definir conjunto Clave - Valor)
+    var url = Uri.https(_baseUrl, '3/movie/popular', {
+      'api_key': _apiKey,
+      'language': _language,
+      'page': _page,
+      'region': _region
+    });
+
+    // Await the http get response, then decode the json-formatted response.
+    final result = await http.get(url);
+    final popularsResponse = PopularsResponse.fromJson(result.body);
+
+    onPopulars = popularsResponse.results; // Iniciamos la variable con el listado de peliculas
+
+    notifyListeners(); // Avisar a todo el arbol de Widgets que usan este provider de que ha habido cambios
+  }
 
   Future<List<Cast>> getMovieCast(int idMovie) async{
     print('Pedimos info al servidor');

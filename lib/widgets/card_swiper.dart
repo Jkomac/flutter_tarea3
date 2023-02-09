@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_this
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/models.dart';

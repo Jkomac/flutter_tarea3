@@ -7,7 +7,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final moviesProvider = Provider.of<MoviesProvider>(context);
-    // print(moviesProvider.onDisplayMovies);
 
     return Scaffold(
       appBar: AppBar(
@@ -19,16 +18,15 @@ class HomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+          ),
           child: Column(
             children: [
               // Targetes principals
               CardSwiper(movies: moviesProvider.onDisplayMovies),
-
               // Slider de pel·licules
-              MovieSlider(),
-              // Poodeu fer la prova d'afegir-ne uns quants, veureu com cada llista és independent
-              // MovieSlider(),
-              // MovieSlider(),
+              MovieSlider(movies: moviesProvider.onPopulars),
             ],
           ),
         ),

@@ -1,12 +1,13 @@
+// ignore_for_file: prefer_const_constructors, unused_element
+
 import 'package:flutter/material.dart';
+import 'package:movies_app/models/models.dart';
 import 'package:movies_app/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: Canviar després per una instància de Peli
-    final String peli =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
+    final Movie peli = ModalRoute.of(context)?.settings.arguments as Movie;
 
     return Scaffold(
       body: CustomScrollView(
@@ -16,9 +17,8 @@ class DetailsScreen extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 _PosterAndTitile(),
-                _Overview(),
-                _Overview(),
-                CastingCards(),
+                _Overview(movie: peli),
+                CastingCards(idMovie: peli.id),
               ],
             ),
           ),
@@ -31,6 +31,7 @@ class DetailsScreen extends StatelessWidget {
 class _CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Movie peli = ModalRoute.of(context)?.settings.arguments as Movie;
     // Exactament igual que la AppBaer però amb bon comportament davant scroll
     return SliverAppBar(
       backgroundColor: Colors.indigo,
@@ -46,7 +47,7 @@ class _CustomAppBar extends StatelessWidget {
           color: Colors.black12,
           padding: const EdgeInsets.only(bottom: 10),
           child: Text(
-            'Títol peli',
+            peli.title,
             style: TextStyle(fontSize: 16),
           ),
         ),
@@ -63,6 +64,7 @@ class _CustomAppBar extends StatelessWidget {
 class _PosterAndTitile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Movie peli = ModalRoute.of(context)?.settings.arguments as Movie;
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       margin: const EdgeInsets.only(top: 20),
@@ -110,12 +112,17 @@ class _PosterAndTitile extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
+  final Movie movie;
+
+  // Constructor
+  const _Overview({super.key, required this.movie});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        'Labore eiusmod ad reprehenderit irure eu sunt ex minim. Lorem fugiat Lorem proident duis ea cupidatat. Commodo duis culpa reprehenderit ad elit. Velit duis officia reprehenderit ullamco sint id anim officia est. Enim mollit nisi et exercitation dolore commodo. Cillum mollit laborum non nulla cillum non do reprehenderit Lorem deserunt ex eu sunt do.',
+        movie.overview,
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.subtitle1,
       ),

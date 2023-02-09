@@ -11,6 +11,9 @@ class MoviesProvider extends ChangeNotifier {
   String _page = '1';
 
   List<Movie> onDisplayMovies = [];
+  List<Movie> onPopular = [];
+
+  Map<int, List<Cast>> casting = {}; // PeliculaID + Lista de Actores
 
   MoviesProvider() {
     print('Movies Provider inicializado');
@@ -35,5 +38,23 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners(); // Avisar a todo el arbol de Widgets que usan este provider de que ha habido cambios
   }
 
-  // getOnPopulars() async {} + consulta
+  // Tarea 3
+  getOnPopular(){}// getOnPopulars() async {} + consulta
+
+  Future<List<Cast>> getMovieCast(int idMovie) async{
+    print('Pedimos info al servidor');
+    // (URL, Acceder al EndPoint, Definir conjunto Clave - Valor)
+    var url = Uri.https(_baseUrl, '3/movie/$idMovie/credits', {
+      'api_key': _apiKey,
+      'language': _language
+    }); 
+
+    // Await the http get response, then decode the json-formatted response.
+    final result = await http.get(url);
+    final creditsResponse = CreditResponse.fromJson(result.body);
+
+    casting[idMovie] = creditsResponse.cast;
+
+    return creditsResponse.cast;
+  }
 }

@@ -18,9 +18,6 @@ class HomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black,
-          ),
           child: Column(
             children: [
               // Targetes principals

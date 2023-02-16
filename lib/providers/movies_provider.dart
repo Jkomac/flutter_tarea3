@@ -82,7 +82,6 @@ class MoviesProvider extends ChangeNotifier {
 
   // Metodo encargado de hacer la peticion al servidor para extraer los actores de una pelicula
   Future<List<Cast>> getMovieCast(int idMovie) async{
-    print('Pedimos info al servidor');
     // (URL, Acceder al EndPoint, Definir conjunto Clave - Valor)
     var url = Uri.https(_baseUrl, '3/movie/$idMovie/credits', {
       'api_key': _apiKey,

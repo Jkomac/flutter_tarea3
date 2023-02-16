@@ -3,6 +3,10 @@ import 'package:movies_app/providers/movies_provider.dart';
 import 'package:movies_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+/*
+  Ventana principal de la aplicacion
+*/
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,15 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Cartellera'),
         elevation: 0,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search_outlined))
+          IconButton(
+            onPressed: () { // Funcion del boton de busqueda
+              showSearch(
+                context: context,
+                delegate: CustomeSearch()
+              );
+            },
+            icon: const Icon(Icons.search_outlined)
+          )
         ],
       ),
       body: SingleChildScrollView(

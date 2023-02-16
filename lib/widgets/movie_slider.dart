@@ -3,6 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/models.dart';
 
+/*
+  Clase para reflejar el listado de peliculas Populars en nuestra ventana principal (Parte inferior)
+*/
+
 class MovieSlider extends StatelessWidget {
 
   final List<Movie> movies;
@@ -15,7 +19,6 @@ class MovieSlider extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 260,
-      // color: Colors.red,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

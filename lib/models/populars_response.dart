@@ -1,7 +1,8 @@
-// To parse this JSON data, do
-// final popularsResponse = popularsResponseFromMap(jsonString);
-
 import 'models.dart';
+
+/*
+  Clase para reflejar el listado de peliculas Populares resultantes de la extraccion de datos
+*/
 
 class PopularsResponse {
     PopularsResponse({

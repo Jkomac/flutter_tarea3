@@ -4,6 +4,10 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/models.dart';
 
+/*
+  Clase para reflejar el listado de peliculas de estreno (NowPlaying) en nuestra ventana principal (Parte superior)
+*/
+
 class CardSwiper extends StatelessWidget {
 
   final List<Movie> movies;

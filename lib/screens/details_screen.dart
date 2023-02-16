@@ -1,8 +1,12 @@
-// ignore_for_file: prefer_const_constructors, unused_element
+// ignore_for_file: prefer_const_constructors, unused_element, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/models.dart';
 import 'package:movies_app/widgets/widgets.dart';
+
+/*
+  Ventana donde se detallan los datos principales de la pelicula seleccionada (Caratula, nombre, sinopsis, actores...)
+*/
 
 class DetailsScreen extends StatelessWidget {
   @override

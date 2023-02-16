@@ -5,6 +5,10 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import '../models/models.dart';
 
+/*
+  Clase que se encarga de la extraccion de datos para dar funcionalidad a nuestra aplicacion
+*/
+
 class MoviesProvider extends ChangeNotifier {
   // Atributos
   String _baseUrl = 'api.themoviedb.org'; // No hace falta todo se puede copiar el contenido tras https:// hasta el dominio principal
@@ -43,7 +47,6 @@ class MoviesProvider extends ChangeNotifier {
 
   // Metodo encargado de hacer la peticion al servidor para obtener la info de las pelis populares en el MovieSlider
   getOnPopulars() async {
-    print('OnPopulars inicializado');
     // (URL, Acceder al EndPoint, Definir conjunto Clave - Valor)
     var url = Uri.https(_baseUrl, '3/movie/popular', {
       'api_key': _apiKey,
@@ -61,6 +64,23 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners(); // Avisar a todo el arbol de Widgets que usan este provider de que ha habido cambios
   }
 
+  // Metodo encargado de hacer la peticion al servidor para obtener las peliculas a ser buscadas
+  Future<List<Movie>> searchMovies(String query) async{
+    // (URL, Acceder al EndPoint, Definir conjunto Clave - Valor)
+    var url = Uri.https(_baseUrl, '3/search/movie', {
+      'api_key': _apiKey,
+      'language': _language,
+      'query': query
+    });
+
+    // Await the http get response, then decode the json-formatted response.
+    final result = await http.get(url);
+    final searchResponse = SearchResponse.fromJson(result.body);
+
+    return searchResponse.results;
+  }
+
+  // Metodo encargado de hacer la peticion al servidor para extraer los actores de una pelicula
   Future<List<Cast>> getMovieCast(int idMovie) async{
     print('Pedimos info al servidor');
     // (URL, Acceder al EndPoint, Definir conjunto Clave - Valor)

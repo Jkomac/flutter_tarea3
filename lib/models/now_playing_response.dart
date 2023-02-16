@@ -1,7 +1,8 @@
-// To parse this JSON data, do
-// final nowPlayingResponse = nowPlayingResponseFromMap(jsonString);
-
 import 'models.dart';
+
+/*
+  Clase para reflejar el listado de peliculas NowPlaying (de estreno) resultantes de la extraccion de datos
+*/
 
 class NowPlayingResponse {
   NowPlayingResponse({

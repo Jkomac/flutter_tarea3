@@ -1,8 +1,8 @@
-// To parse this JSON data, do
-//
-//     final creditResponse = creditResponseFromMap(jsonString);
-
 import 'models.dart';
+
+/*
+  Clase para reflejar el listado de actores/actrices resultantes de la extraccion de datos sobre una pelicula
+*/
 
 class CreditResponse {
     CreditResponse({

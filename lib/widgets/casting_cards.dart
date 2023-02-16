@@ -3,8 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../models/models.dart';
+
+/*
+  Clase para reflejar el listado de actores/actrices en la ventana de Details (Parte inferior)
+*/
 
 class CastingCards extends StatelessWidget {
 
